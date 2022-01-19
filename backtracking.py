@@ -18,12 +18,13 @@ def promising (i, weight, profit, n, W, w, p):
         j = i + 1                              
         bound = profit                         
         totweight = weight
-        while ((j <= n) and (totweight + w[j] <= W)):
+        while ((j < n) and (totweight + w[j] <= W)):
+            print(len(w),len(p),j)
             totweight = totweight + w[j]               
             bound = bound + p[j]
             j = j + 1
             
-        k = j                                 
+        k = j-1                                 
         if k<=n:                              
             bound = bound + (W - totweight) * p[k]/w[k]
 
@@ -38,10 +39,10 @@ def knapSackBackTracking(i, profit, weight, W, maxprofit, n, w, p):
         maxprofit = profit                  #   so far.
         #bestset = include
     if promising(i,weight, profit, n, W, w, p):
-         #include[i + 1] = "yes"            
-         knapSackBackTracking(i + 1, profit + p[i + 1], weight + w[i + 1], maxprofit, n, w, p)
+         #include[i + 1] = "yes"      (i, profit, weight, W, maxprofit, n, w, p)
+         knapSackBackTracking(i + 1, profit + p[i + 1], weight + w[i + 1], W, maxprofit, n, w, p) # take it
          #include[i + 1] = "no"              
-         knapSackBackTracking(i + 1, profit, weight,maxprofit, maxprofit, n, w, p)
+         knapSackBackTracking(i + 1, profit, weight, W, maxprofit, n, w, p) # do not take it
     return maxprofit
 
 print("Backtracking:")
